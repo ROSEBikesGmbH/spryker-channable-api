@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<transfers xmlns="spryker:transfer-01"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="spryker:transfer-01 http://static.spryker.com/transfer-01.xsd">
+
+    <transfer name="ChannableRequest">
+        <property name="offset" type="int"/>
+        <property name="limit" type="int"/>
+        <property name="search" type="string"/>
+        <property name="errors" type="int"/>
+        <property name="status" type="string"/>
+        <property name="startDate" type="string"/>
+        <property name="endDate" type="string"/>
+    </transfer>
+
+    <transfer name="ChannableOrderResponse">
+        <property name="orders" type="ChannableOrder[]" singular="channableOrder"/>
+        <property name="errorCount" type="int"/>
+        <property name="total" type="int"/>
+    </transfer>
+
+    <transfer name="ChannableAddress">
+        <property name="firstName" type="string"/>
+        <property name="middleName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="company" type="string"/>
+        <property name="email" type="string"/>
+        <property name="countryCode" type="string"/>
+        <property name="city" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="street" type="string"/>
+        <property name="houseNumber" type="int"/>
+        <property name="houseNumberExtension" type="string"/>
+        <property name="region" type="string"/>
+        <property name="address1" type="string"/>
+        <property name="address2" type="string"/>
+    </transfer>
+
+    <transfer name="ChannableCustomer">
+        <property name="company" type="string"/>
+        <property name="phone" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="middleName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="gender" type="string"/>
+        <property name="email" type="string"/>
+        <property name="mobile" type="string"/>
+    </transfer>
+
+    <transfer name="ChannableExtra">
+        <property name="memo" type="string"/>
+        <property name="comment" type="string"/>
+    </transfer>
+
+    <transfer name="ChannableOffer">
+        <property name="id" type="int"/>
+        <property name="title" type="string"/>
+        <property name="price" type="int"/>
+        <property name="stock" type="int"/>
+    </transfer>
+
+    <transfer name="ChannableOrder">
+        <property name="channelId" type="int"/>
+        <property name="channelName" type="string"/>
+        <property name="error" type="string"/>
+        <property name="id" type="string"/>
+        <property name="platformId" type="string"/>
+        <property name="platformName" type="string"/>
+        <property name="projectId" type="string"/>
+        <property name="statusPaid" type="string"/>
+        <property name="statusShipped" type="string"/>
+        <property name="products" type="ChannableProduct[]" singular="channableProduct"/>
+        <property name="customer" type="ChannableCustomer"/>
+        <property name="shipping" type="ChannableAddress"/>
+        <property name="billing" type="ChannableAddress"/>
+        <property name="extra" type="ChannableExtra"/>
+        <property name="price" type="ChannablePrice"/>
+    </transfer>
+
+    <transfer name="ChannablePrice">
+        <property name="commission" type="int"/>
+        <property name="transactionFee" type="int"/>
+        <property name="shipping" type="int"/>
+        <property name="paymentMethod" type="string"/>
+        <property name="currency" type="string"/>
+        <property name="total" type="int"/>
+        <property name="subTotal" type="int"/>
+    </transfer>
+
+    <transfer name="ChannableProduct">
+        <property name="quantity" type="int"/>
+        <property name="ean" type="string"/>
+        <property name="commission" type="int"/>
+        <property name="id" type="int"/>
+        <property name="referenceCode" type="string"/>
+        <property name="shipping" type="int"/>
+        <property name="title" type="string"/>
+        <property name="price" type="int"/>
+        <property name="deliveryPeriod" type="string"/>
+    </transfer>
+
+    <transfer name="ChannableReturnItem">
+        <property name="catalogItemId" type="int"/>
+        <property name="ean" type="string"/>
+        <property name="quantity" type="int"/>
+        <property name="reason" type="string"/>
+        <property name="comment" type="string"/>
+    </transfer>
+
+    <transfer name="ChannableReturnOrder">
+        <property name="marketplaceOrderId" type="string"/>
+        <property name="intermediaryOrderId" type="int"/>
+        <property name="returnItems" type="ChannableReturnItem[]" singular="channableReturnItem"/>
+    </transfer>
+
+</transfers>

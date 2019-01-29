@@ -1,0 +1,25 @@
+{
+  "name": "rose-bikes-spryker/channable-api",
+  "description": "Channable API Module",
+  "license": "MIT",
+  "homepage": "http://rosebikes.com",
+  "keywords": ["channable", "spryker", "api"],
+  "authors": [
+    {
+      "name": "Benedikt Schmitz",
+      "email": "benedikt.schmitz@rosebikes.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "spryker/transfer": "^3.7",
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "RoseBikesSpryker\\": "src/RoseBikesSpryker/"
+    }
+  }
+}
