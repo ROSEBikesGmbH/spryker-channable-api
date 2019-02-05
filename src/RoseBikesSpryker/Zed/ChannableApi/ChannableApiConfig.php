@@ -18,14 +18,6 @@ class ChannableApiConfig extends AbstractBundleConfig implements ChannableApiCon
     /**
      * @return string
      */
-    public function getProjectId(): string
-    {
-        return $this->get(ChannableApiConstants::CONFIG_CHANNABLE_PROJECT_ID);
-    }
-
-    /**
-     * @return string
-     */
     public function getToken(): string
     {
         return $this->get(ChannableApiConstants::CONFIG_CHANNABLE_TOKEN);

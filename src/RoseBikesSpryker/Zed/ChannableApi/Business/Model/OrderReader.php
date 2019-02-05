@@ -36,6 +36,8 @@ class OrderReader implements OrderReaderInterface
      */
     public function getOrders(ChannableRequestTransfer $channableRequestTransfer): ChannableOrderResponseTransfer
     {
+        $this->checkRequirements($channableRequestTransfer);
+
         $options['query'] = $channableRequestTransfer->toArray();
 
         $channableOrders = $this
@@ -45,5 +47,15 @@ class OrderReader implements OrderReaderInterface
             ->getContents();
 
         return $this->apiResponseToTransferHydrator->hydrate(\GuzzleHttp\json_decode($channableOrders, true));
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ChannableRequestTransfer $channableRequestTransfer
+     *
+     * @return void
+     */
+    public function checkRequirements(ChannableRequestTransfer $channableRequestTransfer): void
+    {
+        $channableRequestTransfer->requireProjectId();
     }
 }

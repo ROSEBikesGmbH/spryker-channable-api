@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\ChannableRequestTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method RoseBikesSpryker\Zed\ChannableApi\Business\ChannableApiBusinessFactory getFactory()
+ * @method \RoseBikesSpryker\Zed\ChannableApi\Business\ChannableApiBusinessFactory getFactory()
  */
 class ChannableApiFacade extends AbstractFacade implements ChannableApiFacadeInterface
 {

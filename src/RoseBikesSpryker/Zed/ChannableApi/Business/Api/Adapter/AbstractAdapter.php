@@ -27,9 +27,11 @@ abstract class AbstractAdapter implements AdapterInterface
     protected $client;
 
     /**
+     * @param array $options
+     *
      * @return string
      */
-    abstract protected function getUrl(): string;
+    abstract protected function getUrl(array $options): string;
 
     /**
      * @param \RoseBikesSpryker\Zed\ChannableApi\ChannableApiConfig $config
@@ -68,7 +70,7 @@ abstract class AbstractAdapter implements AdapterInterface
         try {
             $response = $this->client->request(
                 'GET',
-                $this->getUrl(),
+                $this->getUrl($options),
                 $options
             );
         } catch (RequestException $requestException) {

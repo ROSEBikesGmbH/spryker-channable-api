@@ -11,6 +11,7 @@
         <property name="status" type="string"/>
         <property name="startDate" type="string"/>
         <property name="endDate" type="string"/>
+        <property name="projectId" type="int"/>
     </transfer>
 
     <transfer name="ChannableOrderResponse">
