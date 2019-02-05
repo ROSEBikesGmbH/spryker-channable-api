@@ -76,6 +76,7 @@
         <property name="billing" type="ChannableAddress"/>
         <property name="extra" type="ChannableExtra"/>
         <property name="price" type="ChannablePrice"/>
+        <property name="created" type="string"/>
     </transfer>
 
     <transfer name="ChannablePrice">
