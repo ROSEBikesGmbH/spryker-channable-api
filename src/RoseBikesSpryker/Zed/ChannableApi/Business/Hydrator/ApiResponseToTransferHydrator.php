@@ -4,9 +4,13 @@ namespace RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator;
 
 use Generated\Shared\Transfer\ChannableOrderResponseTransfer;
 use Generated\Shared\Transfer\ChannableOrderTransfer;
+use Spryker\Shared\Log\LoggerTrait;
+use Throwable;
 
 class ApiResponseToTransferHydrator implements ApiResponseToTransferHydratorInterface
 {
+    use LoggerTrait;
+
     /**
      * @var \RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\Plugin\HydratorPluginInterface[]
      */
@@ -32,7 +36,11 @@ class ApiResponseToTransferHydrator implements ApiResponseToTransferHydratorInte
         $channableOrderResponseTransfer->setErrorCount($orders['error_count']);
 
         foreach ($orders['orders'] as $order) {
-            $channableOrderResponseTransfer->addChannableOrder($this->hydrateOrder($order));
+            try {
+                $channableOrderResponseTransfer->addChannableOrder($this->hydrateOrder($order));
+            } catch (Throwable $exception) {
+                $this->getLogger()->warning(sprintf('Hydration failed for channable order: %s', $order['id']));
+            }
         }
 
         return $channableOrderResponseTransfer;
