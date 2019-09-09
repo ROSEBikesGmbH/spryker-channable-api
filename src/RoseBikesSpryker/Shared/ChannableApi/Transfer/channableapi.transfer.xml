@@ -12,6 +12,21 @@
         <property name="startDate" type="string"/>
         <property name="endDate" type="string"/>
         <property name="projectId" type="int"/>
+        <property name="orderNumber" type="int"/>
+    </transfer>
+
+    <transfer name="ChannableOrderUpdate">
+        <property name="orderNumber" type="int"/>
+        <property name="channableOrderNumber" type="string"/>
+        <property name="projectId" type="int"/>
+        <property name="trackingCode" type="string"/>
+        <property name="trackingUrl" type="string"/>
+        <property name="trackingTransporter" type="string"/>
+    </transfer>
+
+    <transfer name="ChannableOrderUpdateResponse">
+        <property name="status" type="string"/>
+        <property name="message" type="string"/>
     </transfer>
 
     <transfer name="ChannableOrderResponse">
@@ -82,6 +97,7 @@
     <transfer name="ChannablePrice">
         <property name="commission" type="int"/>
         <property name="transactionFee" type="int"/>
+        <property name="transactionId" type="int"/>
         <property name="shipping" type="int"/>
         <property name="paymentMethod" type="string"/>
         <property name="currency" type="string"/>

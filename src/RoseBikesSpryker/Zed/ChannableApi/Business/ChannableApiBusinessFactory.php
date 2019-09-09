@@ -2,7 +2,9 @@
 
 namespace RoseBikesSpryker\Zed\ChannableApi\Business;
 
+use RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\CancellationUpdateAdapter;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\OrderAdapter;
+use RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\ShipmentUpdateAdapter;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\ApiResponseToTransferHydrator;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\ApiResponseToTransferHydratorInterface;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\Plugin\BillingHydratorPlugin;
@@ -13,6 +15,8 @@ use RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\Plugin\ProductsHydratorP
 use RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\Plugin\ShippingHydratorPlugin;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Model\OrderReader;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Model\OrderReaderInterface;
+use RoseBikesSpryker\Zed\ChannableApi\Business\Model\OrderWriter;
+use RoseBikesSpryker\Zed\ChannableApi\Business\Model\OrderWriterInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -28,6 +32,14 @@ class ChannableApiBusinessFactory extends AbstractBusinessFactory
         return new OrderReader(
             $this->createOrderAdapter(),
             $this->createApiResponseToTransferMapper()
+        );
+    }
+
+    public function createOrderWriter(): OrderWriterInterface
+    {
+        return new OrderWriter(
+            $this->createCancellationUpdateAdapter(),
+            $this->createShipmentUpdateAdapter()
         );
     }
 
@@ -62,6 +74,26 @@ class ChannableApiBusinessFactory extends AbstractBusinessFactory
     protected function createOrderAdapter(): OrderAdapter
     {
         return new OrderAdapter(
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\ShipmentUpdateAdapter
+     */
+    public function createShipmentUpdateAdapter(): ShipmentUpdateAdapter
+    {
+        return new ShipmentUpdateAdapter(
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\CancellationUpdateAdapter
+     */
+    public function createCancellationUpdateAdapter(): CancellationUpdateAdapter
+    {
+        return new CancellationUpdateAdapter(
             $this->getConfig()
         );
     }

@@ -4,8 +4,8 @@ namespace RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
-use Psr\Http\Message\ResponseInterface;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Exception\ChannableApiHttpRequestException;
 use RoseBikesSpryker\Zed\ChannableApi\ChannableApiConfig;
 
@@ -22,16 +22,83 @@ abstract class AbstractAdapter implements AdapterInterface
     protected $config;
 
     /**
+     * @var int
+     */
+    protected $projectId;
+
+    /**
+     * @var string
+     */
+    protected $orderId;
+
+    /**
+     * @var array
+     */
+    protected $queryParameter = [];
+
+    /**
      * @var \GuzzleHttp\Client
      */
     protected $client;
 
     /**
-     * @param array $options
+     * @param string $orderId
      *
+     * @return void
+     */
+    public function setOrderId(string $orderId): void
+    {
+        $this->orderId = $orderId;
+    }
+
+    /**
      * @return string
      */
-    abstract protected function getUrl(array $options): string;
+    public function getOrderId(): string
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @param int $projectId
+     *
+     * @return void
+     */
+    public function setProjectId(int $projectId): void
+    {
+        $this->projectId = $projectId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProjectId(): int
+    {
+        return $this->projectId;
+    }
+
+    /**
+     * @param array $queryParameter
+     *
+     * @return void
+     */
+    public function setQueryParameter(array $queryParameter): void
+    {
+        $this->queryParameter = $queryParameter;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQueryParameter(): array
+    {
+        return $this->queryParameter;
+    }
+
+    /**
+     * @return string
+     */
+    abstract protected function getUrl(): string;
 
     /**
      * @param \RoseBikesSpryker\Zed\ChannableApi\ChannableApiConfig $config
@@ -45,33 +112,32 @@ abstract class AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param array $options
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function sendRequest(array $options): ResponseInterface
-    {
-        $options['headers'] = [
-            'Authorization' => 'Bearer ' . $this->config->getToken(),
-        ];
-
-        return $this->send($options);
-    }
-
-    /**
-     * @param array $options
+     * @param string $requestMethod
+     * @param string $body
      *
      * @throws \RoseBikesSpryker\Zed\ChannableApi\Business\Exception\ChannableApiHttpRequestException
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return \GuzzleHttp\Psr7\Response
      */
-    protected function send(array $options = []): ResponseInterface
+    public function sendRequest(string $requestMethod, string $body = ''): Response
     {
+        $requestOptions['headers'] = [
+            'Authorization' => 'Bearer ' . $this->config->getToken(),
+        ];
+
+        if (!empty($this->getQueryParameter())) {
+            $requestOptions['query'] = $this->getQueryParameter();
+        }
+
+        if (!empty($body)) {
+            $requestOptions['body'] = $body;
+        }
+
         try {
             $response = $this->client->request(
-                'GET',
-                $this->getUrl($options),
-                $options
+                $requestMethod,
+                $this->getUrl(),
+                $requestOptions
             );
         } catch (RequestException $requestException) {
             throw new ChannableApiHttpRequestException(

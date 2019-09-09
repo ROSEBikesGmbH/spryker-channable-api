@@ -21,6 +21,7 @@ class ProductsHydratorPlugin implements HydratorPluginInterface
         foreach ($order['data']['products'] as $product) {
             $channableProductTransfer = new ChannableProductTransfer();
             $channableProductTransfer->fromArray($product, true);
+            $channableProductTransfer->setPrice($channableProductTransfer->getPrice() * 100);
 
             $products->append($channableProductTransfer);
         }

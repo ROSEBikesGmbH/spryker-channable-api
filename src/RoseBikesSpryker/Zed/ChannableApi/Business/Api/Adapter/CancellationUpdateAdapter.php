@@ -6,7 +6,7 @@ use Generated\Shared\Transfer\ChannableOrderUpdateTransfer;
 use GuzzleHttp\Psr7\Response;
 use RoseBikesSpryker\Shared\ChannableApi\ChannableApiConstants;
 
-class OrderAdapter extends AbstractAdapter
+class CancellationUpdateAdapter extends AbstractAdapter
 {
     /**
      * @return string
@@ -18,7 +18,7 @@ class OrderAdapter extends AbstractAdapter
             $this->config->getHost(),
             $this->config->getCompanyId(),
             $this->getProjectId(),
-            ChannableApiConstants::API_ENDPOINT_ORDERS
+            sprintf(ChannableApiConstants::API_ENDPOINT_ORDERS_CANCELLATION_UPDATE, $this->getOrderId())
         );
     }
 
@@ -29,6 +29,9 @@ class OrderAdapter extends AbstractAdapter
      */
     public function send(?ChannableOrderUpdateTransfer $channableOrderUpdateTransfer = null): Response
     {
-        return $this->sendRequest(AdapterInterface::REQUEST_METHOD_GET);
+        $this->setProjectId($channableOrderUpdateTransfer->getProjectId());
+        $this->setOrderId($channableOrderUpdateTransfer->getChannableOrderNumber());
+
+        return $this->sendRequest(AdapterInterface::REQUEST_METHOD_POST);
     }
 }

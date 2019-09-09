@@ -5,6 +5,7 @@ namespace RoseBikesSpryker\Zed\ChannableApi\Business\Model;
 use Generated\Shared\Transfer\ChannableOrderResponseTransfer;
 use Generated\Shared\Transfer\ChannableRequestTransfer;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\AdapterInterface;
+use RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\OrderAdapter;
 use RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\ApiResponseToTransferHydratorInterface;
 
 class OrderReader implements OrderReaderInterface
@@ -20,10 +21,10 @@ class OrderReader implements OrderReaderInterface
     protected $apiResponseToTransferHydrator;
 
     /**
-     * @param \RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\AdapterInterface $orderAdapter
+     * @param \RoseBikesSpryker\Zed\ChannableApi\Business\Api\Adapter\OrderAdapter $orderAdapter
      * @param \RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\ApiResponseToTransferHydratorInterface $apiResponseToTransferHydrator
      */
-    public function __construct(AdapterInterface $orderAdapter, ApiResponseToTransferHydratorInterface $apiResponseToTransferHydrator)
+    public function __construct(OrderAdapter $orderAdapter, ApiResponseToTransferHydratorInterface $apiResponseToTransferHydrator)
     {
         $this->orderAdapter = $orderAdapter;
         $this->apiResponseToTransferHydrator = $apiResponseToTransferHydrator;
@@ -38,11 +39,12 @@ class OrderReader implements OrderReaderInterface
     {
         $this->checkRequirements($channableRequestTransfer);
 
-        $options['query'] = $channableRequestTransfer->toArray();
+        $this->orderAdapter->setQueryParameter($channableRequestTransfer->toArray());
+        $this->orderAdapter->setProjectId($channableRequestTransfer->getProjectId());
 
         $channableOrders = $this
             ->orderAdapter
-            ->sendRequest($options)
+            ->send()
             ->getBody()
             ->getContents();
 
