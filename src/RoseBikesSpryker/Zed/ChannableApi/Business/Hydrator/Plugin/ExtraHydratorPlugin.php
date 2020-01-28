@@ -5,7 +5,7 @@ namespace RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\Plugin;
 use Generated\Shared\Transfer\ChannableExtraTransfer;
 use Generated\Shared\Transfer\ChannableOrderTransfer;
 
-class ExtraHydratorPlugin implements HydratorPluginInterface
+class ExtraHydratorPlugin extends AbstractHydrator implements HydratorPluginInterface
 {
     /**
      * @param array $order
