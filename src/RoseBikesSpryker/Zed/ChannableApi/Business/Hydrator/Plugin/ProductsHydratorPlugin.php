@@ -6,7 +6,7 @@ use ArrayObject;
 use Generated\Shared\Transfer\ChannableOrderTransfer;
 use Generated\Shared\Transfer\ChannableProductTransfer;
 
-class ProductsHydratorPlugin implements HydratorPluginInterface
+class ProductsHydratorPlugin extends AbstractHydrator implements HydratorPluginInterface
 {
     /**
      * @param array $order
@@ -21,7 +21,7 @@ class ProductsHydratorPlugin implements HydratorPluginInterface
         foreach ($order['data']['products'] as $product) {
             $channableProductTransfer = new ChannableProductTransfer();
             $channableProductTransfer->fromArray($product, true);
-            $channableProductTransfer->setPrice($channableProductTransfer->getPrice() * 100);
+            $channableProductTransfer->setPrice($this->convertPriceToInteger($product['price']));
 
             $products->append($channableProductTransfer);
         }
