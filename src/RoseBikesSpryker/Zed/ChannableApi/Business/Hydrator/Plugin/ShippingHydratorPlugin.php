@@ -16,7 +16,7 @@ class ShippingHydratorPlugin extends AbstractHydrator implements HydratorPluginI
     public function hydrate(array $order, ChannableOrderTransfer $channableOrderTransfer): ChannableOrderTransfer
     {
         $channableAddressTransfer = new ChannableAddressTransfer();
-        $channableAddressTransfer->fromArray($order['data']['billing'], true);
+        $channableAddressTransfer->fromArray($order['data']['shipping'], true);
 
         $channableOrderTransfer->setShipping($channableAddressTransfer);
 
