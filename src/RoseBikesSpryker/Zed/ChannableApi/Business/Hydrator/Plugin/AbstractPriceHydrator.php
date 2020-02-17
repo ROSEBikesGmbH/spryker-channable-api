@@ -2,7 +2,7 @@
 
 namespace RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\Plugin;
 
-abstract class AbstractHydrator
+abstract class AbstractPriceHydrator
 {
     /**
      * @const int

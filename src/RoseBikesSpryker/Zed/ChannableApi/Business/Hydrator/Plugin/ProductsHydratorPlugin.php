@@ -6,7 +6,7 @@ use ArrayObject;
 use Generated\Shared\Transfer\ChannableOrderTransfer;
 use Generated\Shared\Transfer\ChannableProductTransfer;
 
-class ProductsHydratorPlugin extends AbstractHydrator implements HydratorPluginInterface
+class ProductsHydratorPlugin extends AbstractPriceHydrator implements HydratorPluginInterface
 {
     /**
      * @param array $order
