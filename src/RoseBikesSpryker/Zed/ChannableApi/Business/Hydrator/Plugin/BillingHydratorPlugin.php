@@ -5,7 +5,7 @@ namespace RoseBikesSpryker\Zed\ChannableApi\Business\Hydrator\Plugin;
 use Generated\Shared\Transfer\ChannableAddressTransfer;
 use Generated\Shared\Transfer\ChannableOrderTransfer;
 
-class BillingHydratorPlugin extends AbstractHydrator implements HydratorPluginInterface
+class BillingHydratorPlugin extends AbstractAddressHydrator implements HydratorPluginInterface
 {
     /**
      * @param array $order
@@ -16,8 +16,8 @@ class BillingHydratorPlugin extends AbstractHydrator implements HydratorPluginIn
     public function hydrate(array $order, ChannableOrderTransfer $channableOrderTransfer): ChannableOrderTransfer
     {
         $channableAddressTransfer = new ChannableAddressTransfer();
-        $channableAddressTransfer->fromArray($order['data']['billing'], true);
 
+        $channableAddressTransfer = $this->mapAddress($channableAddressTransfer, $order['data']['billing']);
         $channableOrderTransfer->setBilling($channableAddressTransfer);
 
         return $channableOrderTransfer;
